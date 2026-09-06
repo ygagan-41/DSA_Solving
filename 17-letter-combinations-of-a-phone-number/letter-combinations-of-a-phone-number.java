@@ -1,44 +1,59 @@
 class Solution {
-    static void solve(String digits, String[] mapping ,List<String>output , StringBuilder ans,int index){
+    static void solve(String digits,List<String> output,int index,String[] mapping ,StringBuilder ans){
+
         //base case
-        //agar hamara ans stored ho chuka hai toh return karjaao
-        if(index>=digits.length()){
-            //agar hamara index khatam ho chuka hai toh string jo 
-            //bani hai string builder mai use store karlo output me or return karjaao
+        //agar hamara index string se bahar nikal chuka hai toh string ko store karlo 
+        //ans me and output me daaldo or return hojaao
+        if(index >= digits.length()){
+
+            //agar mera index out of string chala gya hai yaa base case hit karchuka h
+            //hai toh mere answer ko store kardo ans string builder me or return hojaao
             output.add(ans.toString());
             return;
         }
 
-        //1 case hum karege baaki recursion
-        //ab hum apni input string ke upar index daalenege taaki vo kaam karna shuru kare
-        int value = digits.charAt(index) - '0'; 
+        //1 case hum baaki recursion
 
-        //mapped string variable ke andar mene mapping ke upar index daal diya
+        //ab digits jo ki input string hai usme jaha index hai vo character value 
+        //variable me stored kaaralo saath hi use int me convert bhi kardo
+        int value = digits.charAt(index)-'0';
+
+        //jo hume value mili hai , us value ko mai mapping me put karuga taaki hum us 
+        //string pe kaam kar sake
         String mappedString = mapping[value];
 
-        //ab meri current value or mapped string ready hai perform karne ke liye iska 
-        //matlab mujhe loop chalana padega taaki voh perform kar sake 
+        //yeh loop har kisi value pe jaayega mapping ke lekin hamaara input 2 hai toh
+        //ye 2 mapping pe jayega
+        for(int i=0 ; i<mappedString.length() ; i++){
 
-        //ab me loop chalauga i=0 se mujhe 2 ke abc pe le jaega or use store karlega 
-        //output me 
-        for(int i = 0; i<mappedString.length() ; i++){
+            //i pe jo value hai mapping index ke use store karlo string builder me
+            //index = 0;
+            //value = 2
+            //mappedString = 2;
+            //loop - i = 0 to i = 3
+            // 0 - a
+            // 1 - b
+            // 2 - c
+            //it will pick a then a + d like that
             ans.append(mappedString.charAt(i));
-        
 
-        //function ko call karo taaki index increment ho jaaye
-        solve(digits,mapping,output,ans,index+1);
+            //index ko plus 1 kardega taaki hamara index aage waali input string pe badhe
+            solve(digits,output,index+1,mapping,ans);
 
-        //last step which is backtracking or undo step
-        ans.deleteCharAt(ans.length()-1);
-        
+            //last step backtracking
+            //jab hamara ek string store hoajega succesfully to hum dubara usse nhi laana chate
+            //toh backtrack karwaege or ussse bolege vaapas jaao
+            //matlab char "ad" toh vo d delete kardega store karne ke baad 
+            //tabhi toh "ae" aaega backtrcak karne ke baad
+            ans.deleteCharAt(ans.length()-1);
         }
     }
     public List<String> letterCombinations(String digits) {
-        String[] mapping = {" "," ","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
         List<String> output = new ArrayList<>();
         int index = 0;
+        String[] mapping = {" "," ", "abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
         StringBuilder ans = new StringBuilder();
-        solve(digits,mapping,output,ans,index);
-        return output;
+        solve(digits,output,index,mapping,ans);
+        return output; 
     }
 }

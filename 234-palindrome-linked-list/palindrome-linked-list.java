@@ -13,10 +13,12 @@ class Solution {
         ListNode prev = null;
         ListNode curr = head;
 
-        while(curr!=null){
-            ListNode forward = curr.next; 
+        while(curr != null){
+            ListNode forward = curr.next;
 
             curr.next = prev;
+
+            //update
             prev = curr;
             curr = forward;
         }
@@ -25,10 +27,9 @@ class Solution {
     public ListNode getmiddlepoint(ListNode head){
         ListNode fast = head;
         ListNode slow = head;
-
-        while(fast!=null){
+        while(fast != null){
             fast = fast.next;
-            if(fast!=null){
+            if(fast != null){
                 fast = fast.next;
                 slow = slow.next;
             }
@@ -36,11 +37,12 @@ class Solution {
         return slow;
     }
     public boolean isPalindrome(ListNode head) {
+        //if head is null
         if(head == null || head.next == null){
             return true;
         }
-        //getmiddlepoint
-        ListNode list2 = getmiddlepoint(head);
+        //get middle point
+        ListNode list2 = getmiddlepoint( head);
 
         //break
         ListNode temp = head;

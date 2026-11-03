@@ -1,17 +1,27 @@
 class Solution {
     public String removeDuplicates(String s) {
-        StringBuilder ans = new StringBuilder();
 
-        for(int i=0 ; i<s.length() ; i++){
-            char ch = s.charAt(i);
+        Deque<Character> st = new ArrayDeque<>();
 
-            if(ans.length() > 0 && ans.charAt(ans.length()-1) == ch){
-                ans.deleteCharAt(ans.length()-1);
+        for(char ch : s.toCharArray()){
+            if(!st.isEmpty()){
+                if(st.peek() == ch){
+                    st.pop();
+                }
+                else{
+                    st.push(ch);
+                }
             }
             else{
-                ans.append(ch);
+                st.push(ch);
             }
         }
-        return ans.toString();
+        StringBuilder str = new StringBuilder();
+
+        while(!st.isEmpty()){
+            str.append(st.peek());
+            st.pop();
+        }
+        return str.reverse().toString();
     }
 }

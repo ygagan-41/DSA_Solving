@@ -1,12 +1,10 @@
 class Solution {
     public boolean isIsomorphic(String s, String t) {
-        if(s.length() != t.length()){
-            return false;
-        }
-        int n = s.length();
-        Map<Character, Character> map = new HashMap<>();
+       
+        Map<Character,Character> map = new HashMap<>();
 
-        for(int i=0 ; i<n ; i++){
+        for(int i=0 ; i<s.length() ; i++){
+
             char original = s.charAt(i);
             char replacement = t.charAt(i);
 
@@ -19,12 +17,12 @@ class Solution {
                 }
             }
             else{
-                char st = map.get(original);
-                if(st != replacement){
+                char str = map.get(original);
+                if(str != replacement){
                     return false;
                 }
             }
         }
-        return true; 
+        return true;
     }
 }

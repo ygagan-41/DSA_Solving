@@ -1,23 +1,18 @@
 class MyStack {
+    //using single queue
     Queue<Integer> q1;
-    Queue<Integer> q2;
-
     public MyStack() {
         q1 = new LinkedList<>();
-        q2 = new LinkedList<>();
     }
     
     public void push(int x) {
-        //insert into queue2
-        q2.offer(x);
-        //then shift all elements from q2 to q1
-        while(!q1.isEmpty()){
-            q2.offer(q1.poll());
+        q1.offer(x);
+        int n = q1.size()-1;
+        for(int i=1; i<=n ; i++){
+            int val = q1.poll();
+            q1.offer(val);
         }
-        //swap q1,q2
-        Queue<Integer> temp = q1;
-        q1 = q2;
-        q2 = temp; 
+
     }
     
     public int pop() {
